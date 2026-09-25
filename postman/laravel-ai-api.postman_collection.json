@@ -1,0 +1,277 @@
+{
+    "info": {
+        "name": "Laravel AI API",
+        "description": "Collection for Laravel blog API with auth, roles, and blog management endpoints.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://127.0.0.1:8000",
+            "type": "string"
+        },
+        {
+            "key": "authToken",
+            "value": "",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"New Admin\",\n  \"email\": \"newadmin@example.com\",\n  \"password\": \"password123\",\n  \"password_confirmation\": \"password123\",\n  \"role\": \"admin\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/register",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "register"]
+                        }
+                    }
+                },
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var json = JSON.parse(responseBody);",
+                                    "if (json.token) {",
+                                    "    pm.collectionVariables.set('authToken', json.token);",
+                                    "}",
+                                    ""
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/login",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "login"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Auth User",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/user",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "user"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Public Blog",
+            "item": [
+                {
+                    "name": "Get Site Info",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/site",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "site"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Blog Posts",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/blog",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "blog"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Blog Post By Slug",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/blog/why-laravel-is-great-for-apis",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "api",
+                                "blog",
+                                "why-laravel-is-great-for-apis"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Blog Management",
+            "item": [
+                {
+                    "name": "List Posts",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/posts",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "posts"]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Post",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"New API Post\",\n  \"slug\": \"new-api-post\",\n  \"excerpt\": \"This is a sample post for testing the blog management API.\",\n  \"content\": \"This is the full article content for the new blog post.\",\n  \"status\": \"published\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/posts",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "posts"]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Post",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Updated API Post\",\n  \"slug\": \"updated-api-post\",\n  \"excerpt\": \"Updated excerpt for the blog post.\",\n  \"content\": \"Updated content for the blog post.\",\n  \"status\": \"published\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/posts/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "posts", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Post",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/posts/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "posts", "1"]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
