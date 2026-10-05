@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(PageSeeder::class);
+        $this->call(ProductSeeder::class);
 
         $admin = \App\Models\User::where('role', 'admin')->first();
         $editor = \App\Models\User::where('role', 'editor')->first();

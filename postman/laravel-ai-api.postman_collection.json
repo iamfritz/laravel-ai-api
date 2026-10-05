@@ -1,7 +1,7 @@
 {
     "info": {
         "name": "Laravel AI API",
-        "description": "Collection for Laravel blog API with auth, roles, and blog management endpoints.",
+        "description": "Collection for Laravel blog API with auth, roles, product catalog, and admin endpoints.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "variable": [
@@ -25,10 +25,7 @@
                     "request": {
                         "method": "POST",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
+                            { "key": "Accept", "value": "application/json" },
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
@@ -65,10 +62,7 @@
                     "request": {
                         "method": "POST",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
+                            { "key": "Accept", "value": "application/json" },
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
@@ -90,10 +84,7 @@
                     "request": {
                         "method": "GET",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
+                            { "key": "Accept", "value": "application/json" },
                             {
                                 "key": "Authorization",
                                 "value": "Bearer {{authToken}}"
@@ -116,10 +107,7 @@
                     "request": {
                         "method": "GET",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            }
+                            { "key": "Accept", "value": "application/json" }
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/api/site",
@@ -133,10 +121,7 @@
                     "request": {
                         "method": "GET",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            }
+                            { "key": "Accept", "value": "application/json" }
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/api/blog",
@@ -150,10 +135,7 @@
                     "request": {
                         "method": "GET",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            }
+                            { "key": "Accept", "value": "application/json" }
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/api/blog/why-laravel-is-great-for-apis",
@@ -169,6 +151,198 @@
             ]
         },
         {
+            "name": "Product Catalog",
+            "item": [
+                {
+                    "name": "Get Products",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/products?page=1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "products"],
+                            "query": [{ "key": "page", "value": "1" }]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Product by Slug",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/products/wireless-noise-cancelling-headphones",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "api",
+                                "products",
+                                "wireless-noise-cancelling-headphones"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Products by Category",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/products/category/electronics",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "api",
+                                "products",
+                                "category",
+                                "electronics"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Products by Tag",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/products/tag/audio",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "products", "tag", "audio"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Product Categories",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/product-categories",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "product-categories"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Product Tags",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/product-tags",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "product-tags"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Product Management",
+            "item": [
+                {
+                    "name": "List Products (Admin)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/products-admin",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "products-admin"]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Product",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Studio Speaker\",\n  \"slug\": \"studio-speaker\",\n  \"description\": \"Modern wireless speaker for focused work and rich, room-filling audio.\",\n  \"image\": \"https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?auto=format&fit=crop&w=1200&q=80\",\n  \"sku\": \"STS-2121\",\n  \"price\": 179.99,\n  \"category_id\": 1,\n  \"status\": \"published\",\n  \"tags\": [\"audio\", \"home\"],\n  \"custom_fields\": [\n    {\"key\": \"Battery\", \"value\": \"18 hours\"},\n    {\"key\": \"Connectivity\", \"value\": \"Bluetooth 5.2\"}\n  ],\n  \"variations\": [\n    {\"name\": \"Color\", \"options\": [\"Black\", \"White\"]}\n  ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/products-admin",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "products-admin"]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Product",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"Studio Speaker Pro\",\n  \"slug\": \"studio-speaker-pro\",\n  \"price\": 199.99,\n  \"status\": \"published\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/products-admin/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "products-admin", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Product",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            { "key": "Accept", "value": "application/json" },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{authToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/products-admin/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "products-admin", "1"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
             "name": "Blog Management",
             "item": [
                 {
@@ -176,10 +350,7 @@
                     "request": {
                         "method": "GET",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
+                            { "key": "Accept", "value": "application/json" },
                             {
                                 "key": "Authorization",
                                 "value": "Bearer {{authToken}}"
@@ -197,10 +368,7 @@
                     "request": {
                         "method": "POST",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
+                            { "key": "Accept", "value": "application/json" },
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
@@ -226,10 +394,7 @@
                     "request": {
                         "method": "PUT",
                         "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
+                            { "key": "Accept", "value": "application/json" },
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
@@ -243,27 +408,6 @@
                             "mode": "raw",
                             "raw": "{\n  \"title\": \"Updated API Post\",\n  \"slug\": \"updated-api-post\",\n  \"excerpt\": \"Updated excerpt for the blog post.\",\n  \"content\": \"Updated content for the blog post.\",\n  \"status\": \"published\"\n}"
                         },
-                        "url": {
-                            "raw": "{{baseUrl}}/api/posts/1",
-                            "host": ["{{baseUrl}}"],
-                            "path": ["api", "posts", "1"]
-                        }
-                    }
-                },
-                {
-                    "name": "Delete Post",
-                    "request": {
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Authorization",
-                                "value": "Bearer {{authToken}}"
-                            }
-                        ],
                         "url": {
                             "raw": "{{baseUrl}}/api/posts/1",
                             "host": ["{{baseUrl}}"],
